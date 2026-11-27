@@ -19,7 +19,7 @@ Older versions live in [`archive/`](archive/). What changed between versions: [`
 - Every version bump updates three things in one commit: the version line at the top of the
   Markdown file, a new PDF snapshot named `..._vX.Y.pdf` (the old PDF moves to `archive/`),
   and an entry in `CHANGELOG.md`.
-- Doc changes go through a branch and pull request (`docs/vX.Y`), so teammates see the diff.
-  After merging, tag the commit `docs-vX.Y`.
+- Commit doc changes directly to `main` (no separate branches in this project).
+  Tag the version-bump commit `docs-vX.Y`.
 - The live editable versions are Claude Docs (links at the top of each Markdown file).
   Edit there or here, but re-export so both match before bumping the version.
