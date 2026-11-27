@@ -1,0 +1,1 @@
+run_name,date,config,backbone,seed,val_pair_acc,test_pair_acc,ece_before_t,ece_after_t,temperature,acc_at_80pct_coverage,params_m,browser_ms_per_photo,notes

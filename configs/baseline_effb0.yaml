@@ -1,0 +1,23 @@
+# Siamese baseline, Feasibility Checklist v2, Day 2.
+run_name: YYYYMMDD_effb0_s0
+seed: 0
+
+data:
+  pairs_csv: data/processed/pairs.csv
+  image_root: data/raw/phototriage
+  image_size: 224
+
+model:
+  backbone: efficientnet_b0
+  pretrained: true
+
+train:
+  epochs: 10
+  batch_size: 32
+  optimizer: adamw
+  lr: 1.0e-4
+  weight_decay: 1.0e-2
+
+eval:
+  test_agreement_threshold: 0.7
+  ece_bins: 15

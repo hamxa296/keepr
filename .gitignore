@@ -1,0 +1,34 @@
+# Data and run outputs live in the shared Drive folder, never in git
+data/*
+!data/README.md
+preds/
+feats/
+teacher/
+models/
+results/runs/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.npy
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# App
+app/node_modules/
+app/.next/
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets
+.env
+.env.*
