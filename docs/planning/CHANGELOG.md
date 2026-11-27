@@ -25,8 +25,16 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 
 ## Feasibility Checklist
 
-### v2 — 27 Nov 2026
+### 2.1 — 27 Nov 2026
+- Moved to Markdown (`feasibility_checklist.md`) with a revision table; PDF snapshot `Keepr_Feasibility_Checklist_v2.1.pdf`. The v1 and v2 PDFs are in `archive/` as 1.0 and 2.0.
+- **CLIP ViT-B/16 baseline added to the week:** A caches frozen CLIP features on Day 2 and trains a pairwise head on Day 3; full fine-tune only after the decision, if there is 4090 time.
+- **Scorecard:** new rows for the CLIP baseline accuracy and the student ÷ CLIP ratio (≥ 0.95 is on track for the new H1). FGAesQ's 0.779 is not used for comparison.
+- **Face-head labels section:** CEW, CelebA `Smiling`, head-pose gaze, Laplacian blur on 112×112 crops, CelebA `Eyeglasses` as the occlusion proxy; VLM only if it passes the flip test.
+- **Face check set:** B hand-labels ~200 Phototriage face crops (Wed–Thu); A makes the first face pseudo-labels on Wednesday.
+- File contracts gain `data/face_labels.csv` and `data/face_check.csv`.
+
+### 2.0 — 27 Nov 2026
 - Course-only scope, three roles ([A] Hamza GPU lead, [B] data + eval, [C] app), GPU plan, file contracts.
 
-### v1 — 27 Nov 2026
-- First 7-day checklist (`archive/Keepr_Feasibility_Checklist_v1.pdf`).
+### 1.0 — 27 Nov 2026
+- First 7-day checklist (`archive/Keepr_Feasibility_Checklist_v1.0.pdf`).

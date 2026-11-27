@@ -9,11 +9,12 @@ into Calibrated, On-Device Series Photo Selection*), but paper drafting is defer
 the course deadline.
 
 The full plan lives in [`docs/planning/`](docs/planning/), as versioned Markdown with PDF
-snapshots (see [`docs/planning/README.md`](docs/planning/README.md)):
+snapshots. Each doc has one latest version that contains everything, so read only these
+(older versions are in `docs/planning/archive/`; rules in [`docs/planning/README.md`](docs/planning/README.md)):
 
 - [Research Roadmap](docs/planning/roadmap.md) (v1.1): gap, hypotheses, method, experiments, risks
 - [Paper Summaries](docs/planning/paper_summaries.md) (v1.1): 24 papers, what each gives us
-- [Feasibility Checklist v2](docs/planning/Keepr_Feasibility_Checklist_v2.pdf): the 27 Nov to 4 Dec sprint
+- [Feasibility Checklist](docs/planning/feasibility_checklist.md) (v2.1): the 27 Nov to 4 Dec sprint
 - [Changelog](docs/planning/CHANGELOG.md)
 
 ## Repository layout
