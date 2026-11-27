@@ -1,11 +1,11 @@
 # E1 large baseline, full fine-tune (roadmap v1.1, E1). Only if there is spare GPU time.
-# On the 12 GB A2000: bf16 with batch 16, or enable gradient checkpointing.
+# On a 16 GB Kaggle T4: fp16 (T4 has no bf16) with batch 16, or enable gradient checkpointing.
 run_name: YYYYMMDD_clipb16ft_s0
 seed: 0
 
 data:
   pairs_csv: data/processed/pairs.csv
-  image_root: data/raw/phototriage
+  image_root: data/raw/phototriage-256   # on Kaggle: /kaggle/input/phototriage-256
   image_size: 224
 
 model:
@@ -19,7 +19,7 @@ train:
   optimizer: adamw
   lr: 1.0e-5                    # low LR for a full CLIP fine-tune
   weight_decay: 5.0e-2
-  precision: bf16
+  precision: fp16
 
 eval:
   test_agreement_threshold: 0.7

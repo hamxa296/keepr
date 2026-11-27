@@ -4,6 +4,9 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 
 ## Roadmap & Paper Plan
 
+### 1.3 — 28 Nov 2026
+- **Kaggle-only compute:** no lab GPU confirmed; the A2000 is optional. Compute line and VLM risk row updated; new risk row for running out of Kaggle quota.
+
 ### 1.2 — 28 Nov 2026
 - **Compute changed:** no RTX 4090. The plan now runs on the lab RTX A2000 (12 GB) plus Kaggle T4 (30 h/week per teammate). Compute line added under the version header.
 - VLM risk row updated: 7B in 4-bit on the A2000 or fp16 across T4 ×2, 3B in bf16 as fallback.
@@ -20,6 +23,9 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 
 ## Paper Summaries
 
+### 1.3 — 28 Nov 2026
+- Compute notes now refer to Kaggle T4 instead of the lab A2000.
+
 ### 1.2 — 28 Nov 2026
 - Three "Try this" / "Limits" notes that assumed the RTX 4090 now refer to the lab A2000 (12 GB) and Kaggle T4, with 4-bit loading for large VLMs.
 
@@ -31,6 +37,12 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 - First version: 24 papers, main idea / how it works / what we get (`archive/Keepr_Paper_Summaries_v1.0.pdf`).
 
 ## Feasibility Checklist
+
+### 2.3 — 28 Nov 2026
+- **Kaggle-only:** all GPU work on Kaggle T4 ×2 (30 h/week × 3 accounts); the lab A2000 is optional.
+- Phototriage already uploaded as a private Kaggle dataset (done); new `phototriage-256` pre-resized dataset; starter notebook that clones the repo.
+- Two jobs per T4 ×2 session; headless "Save & Run All" runs; fp16; run outputs shared as Kaggle datasets instead of Drive; quota split per person; GPU-hour logging.
+- "How work flows" and "GPU plan" sections rewritten.
 
 ### 2.2 — 28 Nov 2026
 - **Compute changed:** lab RTX A2000 (12 GB) + Kaggle T4 (30 h/week × 3 teammates) instead of the RTX 4090.

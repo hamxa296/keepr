@@ -1,10 +1,11 @@
 # Data
 
-Nothing in this folder is committed except this README. Download datasets locally or sync
-them from the shared Drive folder.
+Nothing in this folder is committed except this README. On Kaggle, attach the private
+datasets (Phototriage, `phototriage-256`); locally, download them with the Kaggle CLI.
 
 ```
-data/raw/phototriage/      Phototriage (Chang et al. 2016), phototriage.cs.princeton.edu
+data/raw/phototriage/      Phototriage (Chang et al. 2016); private Kaggle dataset shared with the team
+data/raw/phototriage-256/  same images, short side resized to 256 px (private Kaggle dataset)
 data/raw/fgaesthetics/     FGAesthetics (arXiv 2603.03907), if released
 data/raw/faces/            CEW, CelebA attributes, for the face heads
 data/raw/shifted/          our own phone-photo series; final evaluation only, never tuning

@@ -4,47 +4,57 @@
   Versioned planning doc. The Markdown file is the source of truth for diffs;
   the PDF next to it is a snapshot of the same version. See docs/planning/README.md.
 -->
-> **Version 2.2** · 28 Nov 2026 · PDF snapshot: [`Keepr_Feasibility_Checklist_v2.2.pdf`](Keepr_Feasibility_Checklist_v2.2.pdf)
+> **Version 2.3** · 28 Nov 2026 · PDF snapshot: [`Keepr_Feasibility_Checklist_v2.3.pdf`](Keepr_Feasibility_Checklist_v2.3.pdf)
 > This is the only version to read. Older versions are in [`archive/`](archive/). Changes: [CHANGELOG](CHANGELOG.md).
 
 | Version | Date | Changes |
 |---|---|---|
+| 2.3 | 28 Nov 2026 | Kaggle-only: no lab GPU is confirmed (the A2000 may come on Mon 30 Nov and is optional). Phototriage is already a private Kaggle dataset shared with the team. Code runs from the GitHub repo inside thin Kaggle notebooks; images pre-resized to 256 px; T4 ×2 sessions run two jobs at once; run outputs shared as Kaggle datasets instead of Drive; quota split per person |
 | 2.2 | 28 Nov 2026 | No 4090: compute is now the lab RTX A2000 (12 GB) plus Kaggle T4 (30 h/week per teammate, 90 h total). VLM teacher runs in 4-bit on the A2000 or fp16 across Kaggle T4 ×2. Phototriage shared as a private Kaggle dataset. Seeds and ablations spread across all three Kaggle quotas |
 | 2.1 | 27 Nov 2026 | CLIP ViT-B/16 feature cache and head added (the H1 baseline); face-head label sources; ~200-crop face check set for B; face-label file contracts; CLIP-ratio row in the scorecard |
 | 2.0 | 27 Nov 2026 | Three roles, one lab GPU, file contracts, GPU plan |
 | 1.0 | 27 Nov 2026 | First 7-day checklist, single person |
 
-**Fri 27 Nov → decision Fri 4 Dec 2026 · 3 teammates, 1 lab RTX A2000 + 3 Kaggle accounts.**
+**Fri 27 Nov → decision Fri 4 Dec 2026 · 3 teammates, 3 Kaggle accounts (30 GPU-hours/week each).**
 Goal: prove, with real numbers, that the Phototriage version of Keepr works, or switch early to the simpler culler.
 
 ## Who does what
 
 | Who | Owns | Compute |
 |---|---|---|
-| **[A] Hamza** · GPU + training lead | Training script, baseline, seeds, backbone ablations, CLIP baseline, VLM probe, saved feature caches. Final call on the decision. | Lab RTX A2000 (12 GB) + Kaggle T4 |
+| **[A] Hamza** · GPU + training lead | Training script, baseline, seeds, backbone ablations, CLIP baseline, VLM probe, saved feature caches. Final call on the decision. | Kaggle T4 ×2 (30 h/week) |
 | **[B] Teammate** · Data + evaluation | Phototriage download and splits, `eval.py`, calibration and "not sure" analysis, all plots, the scorecard, the face check set, the shifted phone-photo set. | Laptop CPU + Kaggle T4 (30 h/week) |
 | **[C] Teammate** · App + deployment | Next.js app, MediaPipe faces in the browser, burst grouping, ONNX/INT8 export, browser speed test, app screenshots for the memo. | Laptop CPU + Kaggle T4 (30 h/week) |
 
 ## Start today: the first six steps
 
 - [ ] **[All]** 30-minute kickoff call: confirm roles, pick a daily 15-minute standup time, open a group chat.
-- [ ] **[A]** Create the GitHub repo `keepr` (folders `data/ src/ configs/ notebooks/ app/`) and invite B and C. Create the shared Drive folder and the results sheet.
+- [ ] **[A]** Create the GitHub repo `keepr` (folders `data/ src/ configs/ notebooks/ app/`) and invite B and C. Create the shared results sheet (Google Sheets).
 - [ ] **[All]** Install Python 3.11 + PyTorch, clone the repo, and create a Kaggle account. Verify your phone number on Kaggle to unlock its free weekly GPU quota.
-- [ ] **[A]** On the lab machine run `nvidia-smi` and `python -c "import torch; print(torch.cuda.is_available())"`. You should see the RTX A2000 (12 GB) and `True`. Write down in `docs/compute.md` how you reach it (SSH or in person), whether it is shared, and whether overnight runs are allowed.
-- [ ] **[B]** Download Phototriage from phototriage.cs.princeton.edu and read its terms. If the terms allow it, upload it once as a **private Kaggle dataset** shared with A and C, so every Kaggle notebook can attach it without re-downloading. Also check the FGAesthetics paper (arXiv 2603.03907) for a data link.
+- [ ] **[A]** Make the Kaggle starter notebook: Accelerator **GPU T4 ×2**, Internet **on**, attach the Phototriage dataset, `git clone` the repo, `pip install -e .`, then run `nvidia-smi` and `python -c "import torch; print(torch.cuda.is_available(), torch.cuda.device_count())"`. You should see two T4s and `True 2`. Share it with B and C; everyone copies it for their own runs.
+- [x] **[A]** Phototriage uploaded as a **private Kaggle dataset** and shared with B and C (done 28 Nov).
+- [ ] **[B]** Read Phototriage's terms of use and record them in `data/README.md`. Also check the FGAesthetics paper (arXiv 2603.03907) for a data link.
 - [ ] **[C]** Create the app skeleton: `npx create-next-app keepr-app`, then add `onnxruntime-web` and MediaPipe Tasks Vision.
 
-## How work flows with one lab GPU and three Kaggle accounts
+## How work flows on Kaggle only
 
-[A] runs the long jobs on the lab A2000 (no weekly cap, no 12-hour session limit): the VLM teacher, the feature caches and the main baseline. Shorter GPU jobs, such as extra seeds and backbone ablations, go to Kaggle T4 notebooks, and any of the three teammates can run them from their own quota (30 h/week each, 90 h in total). Every job saves its outputs as files to the shared Drive folder: model checkpoints, prediction CSVs, cached image features and teacher labels. Analysis, calibration, plots, the app and small "head-only" training on cached features all run on a normal CPU.
+All GPU work runs on Kaggle. Each of the three accounts has 30 GPU-hours a week (90 in total), which is well above what this week needs.
 
-Kaggle limits to plan around: a session stops after 12 hours, so checkpoint every epoch; the T4 has no bf16, so use fp16 mixed precision there; download outputs before the session ends.
+- **Code lives in GitHub, runs on Kaggle.** Notebooks stay thin: turn Internet on, `git clone` the repo, `pip install -e .`, attach the datasets, call a script with a config. Everyone runs the same code. If the repo is private, store a read-only GitHub token in Kaggle **Secrets**, never in the notebook.
+- **Pre-resize once.** Kaggle sessions have only a few CPU cores, so decoding full-size JPEGs starves the GPU. One notebook resizes every image to 256 px (short side) and saves the result as a second private dataset, `phototriage-256`. All training uses that.
+- **Always pick GPU T4 ×2 and run two jobs per session.** Quota counts session time, not GPUs. Launch two runs side by side with `CUDA_VISIBLE_DEVICES=0` and `CUDA_VISIBLE_DEVICES=1` (for example, seeds 1 and 2).
+- **Run long jobs headless.** "Save Version → Save & Run All" runs in the background for up to 12 hours with the browser closed. Checkpoint every epoch so a stopped session can resume.
+- **fp16, not bf16.** The T4 has no bf16; use `torch.autocast(dtype=torch.float16)` with a grad scaler.
+- **Share outputs as Kaggle datasets, not Drive.** Feature caches, predictions, teacher labels and checkpoints are notebook outputs (`/kaggle/working`, up to 20 GB). Publish each as a private dataset (or add the notebook's output as an input) so teammates attach it directly. B and C then do evaluation, calibration and head training on a laptop CPU with no GPU.
+- **Log GPU hours.** Every run's row in the results sheet records its Kaggle account and GPU hours, so nobody runs out of quota mid-week.
+
+**Optional lab RTX A2000 (12 GB).** It may become available on Mon 30 Nov. It is about as fast as a T4 for this work and has less memory, so nothing depends on it. If it arrives, use it only for long overnight jobs (no 12-hour limit, no quota).
 
 ## File contracts
 
 Agree on these today so everyone can work in parallel. Full column specs: [`docs/file_contracts.md`](../file_contracts.md).
 
-| File (in shared Drive) | Columns / contents | Made by | Used by |
+| File (shared as a Kaggle dataset) | Columns / contents | Made by | Used by |
 |---|---|---|---|
 | `data/pairs.csv` | pair_id, series_id, img_a, img_b, label (1 if A preferred), vote_frac, split | B | A, B |
 | `preds/<run>.csv` | pair_id, p_a (model's P(A preferred)), label, vote_frac | A | B |
@@ -60,6 +70,7 @@ Name every run `YYYYMMDD_backbone_seed` and log it as one row in the shared resu
 
 Data in shape, scripts ready, everything tested on small or dummy inputs.
 
+- [ ] **[A]** Run the resize notebook once and publish `phototriage-256` (CPU session is enough; no GPU quota needed).
 - [ ] **[B]** Build `pairs.csv`: split by series (never by photo), keep each pair's vote fraction, mark test pairs with over 70% agreement.
 - [ ] **[B]** Write `eval.py`: pair accuracy, ECE (15 bins), reliability diagram, risk–coverage. Test it on random predictions (accuracy should be about 0.50).
 - [ ] **[A]** Write the Siamese training script (EfficientNet-B0, BCE on sigmoid(sA − sB)). Debug on 200 pairs first.
@@ -67,7 +78,7 @@ Data in shape, scripts ready, everything tested on small or dummy inputs.
 - [ ] **[C]** Run MediaPipe face detection in the browser on 20 of your own photos; draw boxes on the faces.
 - [ ] **[C]** "Hello world" ONNX: export a pretrained MobileNet to ONNX and run it in the browser with onnxruntime-web.
 
-**Done when:** `pairs.csv` is in Drive, `eval.py` passes the random test, the training loop runs on 200 pairs, and faces show up in the browser.
+**Done when:** `pairs.csv` is published as a Kaggle dataset, the `phototriage-256` dataset exists, `eval.py` passes the random test, the training loop runs on 200 pairs, and faces show up in the browser.
 
 **If stuck:** Phototriage site down: check the auto-triage GitHub repo README for mirrors and email the Princeton authors today. Paste any error into Claude together with the code cell that caused it.
 
@@ -75,8 +86,8 @@ Data in shape, scripts ready, everything tested on small or dummy inputs.
 
 First real result.
 
-- [ ] **[A]** Train the baseline on the A2000 (or a Kaggle T4): 224 px, batch 32, AdamW, learning rate 1e-4, about 10 epochs, seed 0 (`configs/baseline_effb0.yaml`). Save the checkpoint and `preds/val_seed0.csv`.
-- [ ] **[A]** Run the feature cache for EfficientNet-B0 **and CLIP ViT-B/16**, and upload `feats/` to Drive.
+- [ ] **[A]** Train the baseline on Kaggle (one T4 of a T4 ×2 session): 224 px, batch 32, AdamW, learning rate 1e-4, about 10 epochs, seed 0 (`configs/baseline_effb0.yaml`). Save the checkpoint and `preds/val_seed0.csv`.
+- [ ] **[A]** Run the feature cache for EfficientNet-B0 **and CLIP ViT-B/16**, on the other T4 of the same session, and publish `feats/` as a Kaggle dataset.
 - [ ] **[B]** Run `eval.py` on A's predictions and record validation pair accuracy in the scorecard.
 - [ ] **[B]** Write the protocol for the shifted phone-photo set: ask 5 friends for 20–30 burst series each, with consent; set up Label Studio.
 - [ ] **[C]** Browser speed test with the placeholder model: average milliseconds per photo over 50 photos.
@@ -91,8 +102,8 @@ Trust check and the large baseline, mostly on CPU from saved files.
 
 - [ ] **[B]** From the predictions CSV: ECE + reliability diagram, model probability vs vote fraction (scatter + correlation), accuracy at 100/90/80/70% coverage.
 - [ ] **[B]** Fit the temperature T on validation, recompute ECE, and log before/after.
-- [ ] **[A, B]** Train seeds 1 and 2 (the brief needs mean ± std over 3 seeds). Run them as two Kaggle notebooks in parallel, one on A's quota and one on B's, while the A2000 does the CLIP work.
-- [ ] **[A]** CLIP ViT-B/16 Siamese baseline, cheap version: train a small pairwise head on the cached frozen CLIP features (`configs/clip_vitb16_head.yaml`). Minutes, on GPU or CPU. Record its validation pair accuracy and the student ÷ CLIP ratio in the scorecard. A full CLIP fine-tune (`configs/clip_vitb16_finetune.yaml`) waits until after the decision and only runs if there is spare GPU time; on 12 GB it needs bf16 and a batch of 16 (or gradient checkpointing).
+- [ ] **[A, B]** Train seeds 1 and 2 (the brief needs mean ± std over 3 seeds). Run both in one T4 ×2 session on B's quota, one seed per GPU.
+- [ ] **[A]** CLIP ViT-B/16 Siamese baseline, cheap version: train a small pairwise head on the cached frozen CLIP features (`configs/clip_vitb16_head.yaml`). Minutes, on GPU or CPU. Record its validation pair accuracy and the student ÷ CLIP ratio in the scorecard. A full CLIP fine-tune (`configs/clip_vitb16_finetune.yaml`) waits until after the decision and only runs if there is spare quota; on a 16 GB T4 use fp16 with batch 16 (or gradient checkpointing).
 - [ ] **[C]** With A's cached EfficientNet-B0 features, train a tiny head on your laptop CPU (logistic regression or a small MLP on feature A − feature B). Compare with A's full model.
 - [ ] **[C]** Export A's real checkpoint to ONNX + INT8 and rerun the browser speed test.
 
@@ -104,14 +115,14 @@ Trust check and the large baseline, mostly on CPU from saved files.
 
 VLM teacher probe (a bonus: if it fails, drop it, not the project).
 
-- [ ] **[A]** Qwen2.5-VL-7B does not fit in bf16 on 12 GB (about 16 GB of weights). Load it **in 4-bit on the A2000** (about 6 GB), or in fp16 split across **Kaggle T4 ×2**. Time 20 pairs first. Take 300–500 validation pairs and ask "Two photos of the same scene. Which would most people keep? Answer A or B." Save P(A) and P(B).
+- [ ] **[A]** On Kaggle T4 ×2: Qwen2.5-VL-7B in fp16 split across both GPUs (`device_map="auto"`, about 16 GB of weights over 32 GB), or in 4-bit on one GPU (about 6 GB). Time 20 pairs first. Take 300–500 validation pairs and ask "Two photos of the same scene. Which would most people keep? Answer A or B." Save P(A) and P(B).
 - [ ] **[A]** Run every pair in both orders and save `teacher/qwen7b.csv` with the seconds per pair.
 - [ ] **[B]** On CPU: teacher accuracy (orders averaged), flip rate (% of verdicts that follow position, not content), and accuracy on order-consistent pairs only.
 - [ ] **[C]** In the app: group photos into bursts (cosine similarity of embeddings) and show a "Best" badge from the real model.
 
 **Done when:** teacher numbers are in the scorecard, and the app picks a best photo per burst.
 
-**If stuck:** out of memory or too slow: use Qwen2.5-VL-3B in bf16 on the A2000 (about 7 GB). A biased or weak teacher simply gets dropped. The face heads do not depend on it (see below).
+**If stuck:** out of memory, NaNs in fp16, or too slow: use 4-bit loading, or Qwen2.5-VL-3B in fp16 on one T4 (about 7 GB). A biased or weak teacher simply gets dropped. The face heads do not depend on it (see below).
 
 ## Days 5–7 · Wed 2 – Fri 4 Dec
 
@@ -161,25 +172,24 @@ No dependency on the VLM teacher, and almost no hand labelling.
 
 Compare against our own CLIP baseline, not FGAesQ's 0.779: that number is on FGAesthetics' re-annotated pairs, a different test set.
 
-## GPU plan: lab A2000 for long jobs, Kaggle for parallel ones
+## GPU plan: Kaggle only
 
-| Task | Who | Where it runs |
-|---|---|---|
-| Main baseline (seed 0) | A | Lab A2000, or Kaggle T4 |
-| Extra seeds, backbone ablations | A, B, C | Kaggle T4, spread over the three quotas |
-| Feature caches (EfficientNet-B0, CLIP ViT-B/16; one pass each) | A | Lab A2000; files shared on Drive |
-| CLIP baseline head on cached features | A | Lab A2000 or laptop CPU |
-| CLIP full fine-tune (optional, after the decision) | A | Lab A2000 (bf16, batch 16) |
-| VLM teacher probe and labels | A | Lab A2000 (7B in 4-bit) or Kaggle T4 ×2 (7B in fp16); 3B in bf16 as fallback |
-| Face pseudo-labels | A | Lab A2000 or laptop CPU |
-| Head-only training on cached features | B, C | Laptop CPU: seconds to minutes |
-| Evaluation, calibration, plots, face check set | B | Laptop CPU |
-| One reproducibility rerun each (viva prep) | B, C | Kaggle T4 |
-| App, MediaPipe, ONNX export, browser test | C | Laptop CPU + browser |
+| Task | Who | Kaggle quota | Where it runs |
+|---|---|---|---|
+| Resize images to `phototriage-256` | A | none | Kaggle CPU session |
+| Main baseline (seed 0) + feature caches (EfficientNet-B0, CLIP ViT-B/16) | A | A | One T4 ×2 session: baseline on GPU 0, caches on GPU 1 |
+| CLIP baseline head on cached features | A | none | Kaggle CPU or laptop |
+| Seeds 1 and 2 | B | B | One T4 ×2 session, one seed per GPU |
+| Backbone ablations, reproducibility run | C | C | T4 ×2 sessions, two runs each |
+| VLM teacher probe and labels | A | A | T4 ×2: 7B in fp16 across both GPUs, or 4-bit on one; 3B as fallback |
+| CLIP full fine-tune (optional, after the decision) | A | A or C | One T4, fp16, batch 16 |
+| Face pseudo-labels | A | none or A | Kaggle CPU, or a T4 if MediaPipe on CPU is too slow |
+| Head-only training, evaluation, calibration, plots, face check set | B, C | none | Laptop CPU |
+| App, MediaPipe, ONNX export, browser test | C | none | Laptop + browser |
 
-**Budget.** 90 Kaggle hours a week plus the A2000 is well above what this week needs. Our rough estimate (to be replaced by real timings after the first run) is under 15 GPU hours for the whole feasibility week: tens of minutes per student run, about an hour for the 500-pair VLM probe in both orders, and minutes for each feature cache. Log GPU hours per run in the results sheet.
+**Budget.** 90 GPU-hours a week across three accounts. Our rough estimate (replace with real timings after the first run) is under 15 GPU-hours for the whole feasibility week: tens of minutes per student run on pre-resized images, about an hour for the 500-pair VLM probe in both orders, and minutes for each feature cache. Running two jobs per T4 ×2 session roughly halves it.
 
-The brief allows training on free-tier GPUs or the lab, so both are fine, and Kaggle covers the reproducibility rule directly. Book A2000 time in a shared calendar if others use it: long jobs overnight, interactive work in the day.
+The AI341 brief requires training on free-tier GPUs or the lab; Kaggle is free tier, so every run already meets the rule.
 
 ## Mini glossary
 

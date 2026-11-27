@@ -12,9 +12,9 @@ The full plan lives in [`docs/planning/`](docs/planning/), as versioned Markdown
 snapshots. Each doc has one latest version that contains everything, so read only these
 (older versions are in `docs/planning/archive/`; rules in [`docs/planning/README.md`](docs/planning/README.md)):
 
-- [Research Roadmap](docs/planning/roadmap.md) (v1.2): gap, hypotheses, method, experiments, risks
-- [Paper Summaries](docs/planning/paper_summaries.md) (v1.2): 24 papers, what each gives us
-- [Feasibility Checklist](docs/planning/feasibility_checklist.md) (v2.2): the 27 Nov to 4 Dec sprint
+- [Research Roadmap](docs/planning/roadmap.md) (v1.3): gap, hypotheses, method, experiments, risks
+- [Paper Summaries](docs/planning/paper_summaries.md) (v1.3): 24 papers, what each gives us
+- [Feasibility Checklist](docs/planning/feasibility_checklist.md) (v2.3): the 27 Nov to 4 Dec sprint
 - [Changelog](docs/planning/CHANGELOG.md)
 
 ## Repository layout
@@ -28,20 +28,22 @@ scripts/         command-line entry points that call src/keepr
 notebooks/       exploration and Kaggle reproducibility notebooks
 app/             Next.js browser app (onnxruntime-web + MediaPipe)  [owner: C]
 data/            local datasets, not committed (see data/README.md)
-preds/ feats/ teacher/ models/   run outputs, shared via Drive, not committed
+preds/ feats/ teacher/ models/   run outputs, shared as private Kaggle datasets, not committed
 results/         results sheet export, small figures for the report
 ```
 
 Large files (images, checkpoints, feature caches, ONNX models) are never committed. They live
-in the shared Drive folder using the same folder names, so paths match on every machine.
+in private Kaggle datasets shared with the team (Phototriage, `phototriage-256`, and one dataset
+per kind of run output), using the same folder names. All GPU work runs on Kaggle; see
+[`docs/compute.md`](docs/compute.md).
 
 ## Team
 
 | Role | Owns | Compute |
 |---|---|---|
-| [A] Hamza, GPU + training lead | training script, baseline, seeds, ablations, VLM probe, feature cache | lab RTX A2000 12 GB + Kaggle T4 |
-| [B] Data + evaluation | Phototriage splits, `pairs.csv`, `eval.py`, calibration, plots, shifted set, ~200-crop face check set | laptop CPU + Kaggle T4 |
-| [C] App + deployment | Next.js app, MediaPipe faces, burst grouping, ONNX/INT8 export, browser speed | laptop CPU + Kaggle T4 |
+| [A] Hamza, GPU + training lead | training script, baseline, seeds, ablations, VLM probe, feature cache | Kaggle T4 ×2 (30 h/week) |
+| [B] Data + evaluation | Phototriage splits, `pairs.csv`, `eval.py`, calibration, plots, shifted set, ~200-crop face check set | laptop CPU + Kaggle T4 ×2 (30 h/week) |
+| [C] App + deployment | Next.js app, MediaPipe faces, burst grouping, ONNX/INT8 export, browser speed | laptop CPU + Kaggle T4 ×2 (30 h/week) |
 
 ## Conventions
 

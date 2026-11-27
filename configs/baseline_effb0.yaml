@@ -4,7 +4,7 @@ seed: 0
 
 data:
   pairs_csv: data/processed/pairs.csv
-  image_root: data/raw/phototriage
+  image_root: data/raw/phototriage-256   # on Kaggle: /kaggle/input/phototriage-256
   image_size: 224
 
 model:

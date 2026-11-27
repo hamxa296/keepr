@@ -4,7 +4,7 @@
   Versioned planning doc. The Markdown file is the source of truth for diffs;
   the PDF next to it is a snapshot of the same version. See docs/planning/README.md.
 -->
-> **Version 1.2** · 28 Nov 2026 · Live doc: https://claude.ai/artifact/EaUXwgDxxbLEUcUwzv931M · PDF snapshot: [`Keepr_Paper_Summaries_v1.2.pdf`](Keepr_Paper_Summaries_v1.2.pdf)
+> **Version 1.3** · 28 Nov 2026 · Live doc: https://claude.ai/artifact/EaUXwgDxxbLEUcUwzv931M · PDF snapshot: [`Keepr_Paper_Summaries_v1.3.pdf`](Keepr_Paper_Summaries_v1.3.pdf)
 > Changes since 1.0: [CHANGELOG](CHANGELOG.md).
 
 
@@ -228,7 +228,7 @@ These are the candidate "teachers": large vision-language models that can look a
 
 **Limits to keep in mind.** It scores one image at a time, and two near-identical photos often get almost the same score, which is why it trails purpose-built series models (0.711 vs 0.779 on FGAesthetics). At about 8.2B parameters it needs a desktop GPU: roughly 100 ms per image on an RTX 3090, so a 300-photo trip takes about 30 seconds there and is impossible on a phone.
 
-**Try this.** Run OneAlign on the Phototriage validation pairs as a ready-made baseline: score both photos and pick the higher. The Hugging Face model card shows it takes only a few lines of code. It also tests whether our lab A2000 (12 GB) setup works for VLMs.
+**Try this.** Run OneAlign on the Phototriage validation pairs as a ready-made baseline: score both photos and pick the higher. The Hugging Face model card shows it takes only a few lines of code. It also tests whether our Kaggle T4 setup works for VLMs.
 
 ### 14. ★ Co-Instruct: Towards Open-ended Visual Quality Comparison (ECCV 2024, oral)
 
@@ -242,7 +242,7 @@ These are the candidate "teachers": large vision-language models that can look a
 
 **Concept explained.** Instruction tuning trains a model on many question–answer examples so it follows requests like "Which image is sharper, and why?". "Weak supervisors" are imperfect label sources (here, merged single-image descriptions and GPT-4V); each is noisy alone, but together they give enough signal. A student beating its teacher sounds odd, but it happens because the student learns from hundreds of thousands of teacher answers and averages out the teacher's random mistakes.
 
-**Limits to keep in mind.** It was trained to compare technical *quality* (blur, noise, exposure), not which photo people would *keep*, so it may ignore faces, expressions and timing. It's a large model, so check memory needs before planning around it: on our 12 GB A2000 or a 16 GB Kaggle T4 it will likely need 4-bit loading.
+**Limits to keep in mind.** It was trained to compare technical *quality* (blur, noise, exposure), not which photo people would *keep*, so it may ignore faces, expressions and timing. It's a large model, so check memory needs before planning around it: on a 16 GB Kaggle T4 it will likely need 4-bit loading or a split across T4 ×2.
 
 **Try this.** In the teacher probe, run Co-Instruct and Qwen2.5-VL on the same 300 Phototriage pairs, in both orders. Compare accuracy and flip rate, and pick the better one as the teacher.
 
@@ -296,7 +296,7 @@ These show how to move a big model's judgement into a small one, and how to lear
 
 **Limits to keep in mind.** You still have to run an 8B teacher over every unlabelled image once, which takes GPU hours. The student (88.6M) is much bigger than ours will be. It reports no confidence calibration and no speed numbers, and code was only promised on publication. Bigger teachers (32B–38B) helped only slightly, and a bigger student (ConvNeXt-Large) didn't help, so a medium teacher plus a small student is a sensible choice.
 
-**Try this.** Copy the pair-wise loss and the entropy weighting directly. Tune the drop threshold on validation. Cache the teacher's outputs to a file once on the lab A2000 so every student run reuses them.
+**Try this.** Copy the pair-wise loss and the entropy weighting directly. Tune the drop threshold on validation. Cache the teacher's outputs to a file once on Kaggle and publish it as a dataset so every student run reuses them.
 
 ### 18. Visual-Language Model Knowledge Distillation for Image Quality Assessment (arXiv 2025)
 

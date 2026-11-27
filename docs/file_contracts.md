@@ -1,7 +1,7 @@
 # File contracts
 
 Agreed formats for files passed between team members, from Feasibility Checklist v2.
-All of these live in the shared Drive folder under the same paths; only small samples are
+All of these are shared as private Kaggle datasets under the same paths; only small samples are
 ever committed. Change a contract only after telling the whole team.
 
 ## `data/pairs.csv` (made by B, used by A and B)
