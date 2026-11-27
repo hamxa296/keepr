@@ -1,4 +1,5 @@
-# E1 large baseline, full fine-tune (roadmap v1.1, E1). Only if there is spare 4090 time.
+# E1 large baseline, full fine-tune (roadmap v1.1, E1). Only if there is spare GPU time.
+# On the 12 GB A2000: bf16 with batch 16, or enable gradient checkpointing.
 run_name: YYYYMMDD_clipb16ft_s0
 seed: 0
 
@@ -14,7 +15,7 @@ model:
 
 train:
   epochs: 10
-  batch_size: 32
+  batch_size: 16
   optimizer: adamw
   lr: 1.0e-5                    # low LR for a full CLIP fine-tune
   weight_decay: 5.0e-2

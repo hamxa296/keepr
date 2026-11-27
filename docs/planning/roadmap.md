@@ -4,8 +4,9 @@
   Versioned planning doc. The Markdown file is the source of truth for diffs;
   the PDF next to it is a snapshot of the same version. See docs/planning/README.md.
 -->
-> **Version 1.1** · 27 Nov 2026 · Live doc: https://claude.ai/artifact/2G1AJK548T3SncNZAPDrsd · PDF snapshot: [`Keepr_Research_Roadmap_v1.1.pdf`](Keepr_Research_Roadmap_v1.1.pdf)
+> **Version 1.2** · 28 Nov 2026 · Live doc: https://claude.ai/artifact/2G1AJK548T3SncNZAPDrsd · PDF snapshot: [`Keepr_Research_Roadmap_v1.2.pdf`](Keepr_Research_Roadmap_v1.2.pdf)
 > Scope: AI341 project first; paper drafting is deferred until after 18 Dec 2026. Changes since 1.0: [CHANGELOG](CHANGELOG.md).
+> **Compute:** lab RTX A2000 (12 GB) for long jobs and the VLM teacher, plus Kaggle T4 (30 h/week for each of 3 teammates) for parallel runs. No 4090.
 
 
 ## TL;DR
@@ -262,7 +263,7 @@ Confirm deadlines on each venue's site in early January; CVPR workshop deadlines
 |---------------------------------------------------------------------------------|----------------------------------|---------------------------------------------------------------------------------------------------------------------|
 | Phototriage download or terms block us                                          | Day 1 check                      | Use BuIQA if released; or build 300 series from friends' albums with pairwise votes                                 |
 | VLM teacher is weak on these pairs (like the ~53% untuned model in Co-Instruct) | E2 by 6 Dec                      | Use the best teacher only on its confident pairs, or train on human pairs only; report the VLM failure as a finding |
-| VLM too slow on free GPU                                                        | Time 100 pairs first             | Use the 3B model in 4-bit; label a subset; cache results once                                                       |
+| VLM too big or too slow for our GPUs (7B needs ~16 GB in bf16; we have 12 GB A2000 and 16 GB T4s) | Time 20 pairs first | Run 7B in 4-bit on the A2000 or fp16 across Kaggle T4 ×2; fall back to 3B in bf16; label a subset; cache results once |
 | VLM prefers whichever photo is shown first (position bias)                      | Swap-order agreement below 80%   | Always average both orders; drop pairs where the two orders disagree                                                |
 | Student doesn't beat 73%                                                        | E3 by 10 Dec                     | Larger backbone within 25M; distillation-only still gives a G2 result                                               |
 | A paper appears that does this first                                            | Re-search in January             | Shift weight to G3 (calibration) and G4 (faces and intent), which are less crowded                                  |

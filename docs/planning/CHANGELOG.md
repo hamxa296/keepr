@@ -4,6 +4,10 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 
 ## Roadmap & Paper Plan
 
+### 1.2 — 28 Nov 2026
+- **Compute changed:** no RTX 4090. The plan now runs on the lab RTX A2000 (12 GB) plus Kaggle T4 (30 h/week per teammate). Compute line added under the version header.
+- VLM risk row updated: 7B in 4-bit on the A2000 or fp16 across T4 ×2, 3B in bf16 as fallback.
+
 ### 1.1 — 27 Nov 2026
 - **H1 made like-for-like.** H1 now names the benchmark: on Phototriage high-agreement test pairs, the student (<10M params) must reach ≥95% of the pair accuracy of **our own CLIP ViT-B/16 Siamese baseline (86M)** trained on the same split, with ≥8× fewer parameters. FGAesQ's 0.779 is measured on FGAesthetics' re-annotated pairs, so it is now quoted as context only (unless FGAesthetics is released and we evaluate on it directly). TL;DR claim and the "bar is now clear" evidence bullet updated to match.
 - **New baseline in E1:** CLIP ViT-B/16 Siamese, frozen features + head first, full fine-tune on the lab 4090 if time.
@@ -16,6 +20,9 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 
 ## Paper Summaries
 
+### 1.2 — 28 Nov 2026
+- Three "Try this" / "Limits" notes that assumed the RTX 4090 now refer to the lab A2000 (12 GB) and Kaggle T4, with 4-bit loading for large VLMs.
+
 ### 1.1 — 27 Nov 2026
 - Each of the 24 summaries expanded with three parts: *Concept explained*, *Limits to keep in mind*, *Try this*.
 - Moved to Markdown in the repo; PDF snapshot `Keepr_Paper_Summaries_v1.1.pdf`.
@@ -24,6 +31,12 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 - First version: 24 papers, main idea / how it works / what we get (`archive/Keepr_Paper_Summaries_v1.0.pdf`).
 
 ## Feasibility Checklist
+
+### 2.2 — 28 Nov 2026
+- **Compute changed:** lab RTX A2000 (12 GB) + Kaggle T4 (30 h/week × 3 teammates) instead of the RTX 4090.
+- VLM probe: Qwen2.5-VL-7B in 4-bit on the A2000, or fp16 across Kaggle T4 ×2; 3B in bf16 as fallback.
+- Seeds 1 and 2 run in parallel on Kaggle; Phototriage shared as a private Kaggle dataset; Kaggle limits (12 h sessions, fp16 on T4) noted.
+- GPU plan table and budget rewritten; CLIP fine-tune needs bf16 and batch 16 on 12 GB.
 
 ### 2.1 — 27 Nov 2026
 - Moved to Markdown (`feasibility_checklist.md`) with a revision table; PDF snapshot `Keepr_Feasibility_Checklist_v2.1.pdf`. The v1 and v2 PDFs are in `archive/` as 1.0 and 2.0.

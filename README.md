@@ -12,9 +12,9 @@ The full plan lives in [`docs/planning/`](docs/planning/), as versioned Markdown
 snapshots. Each doc has one latest version that contains everything, so read only these
 (older versions are in `docs/planning/archive/`; rules in [`docs/planning/README.md`](docs/planning/README.md)):
 
-- [Research Roadmap](docs/planning/roadmap.md) (v1.1): gap, hypotheses, method, experiments, risks
-- [Paper Summaries](docs/planning/paper_summaries.md) (v1.1): 24 papers, what each gives us
-- [Feasibility Checklist](docs/planning/feasibility_checklist.md) (v2.1): the 27 Nov to 4 Dec sprint
+- [Research Roadmap](docs/planning/roadmap.md) (v1.2): gap, hypotheses, method, experiments, risks
+- [Paper Summaries](docs/planning/paper_summaries.md) (v1.2): 24 papers, what each gives us
+- [Feasibility Checklist](docs/planning/feasibility_checklist.md) (v2.2): the 27 Nov to 4 Dec sprint
 - [Changelog](docs/planning/CHANGELOG.md)
 
 ## Repository layout
@@ -39,9 +39,9 @@ in the shared Drive folder using the same folder names, so paths match on every 
 
 | Role | Owns | Compute |
 |---|---|---|
-| [A] Hamza, GPU + training lead | training script, baseline, seeds, ablations, VLM probe, feature cache | lab RTX 4090 (access not yet confirmed) |
-| [B] Data + evaluation | Phototriage splits, `pairs.csv`, `eval.py`, calibration, plots, shifted set, ~200-crop face check set | laptop CPU + Kaggle |
-| [C] App + deployment | Next.js app, MediaPipe faces, burst grouping, ONNX/INT8 export, browser speed | laptop CPU + Kaggle |
+| [A] Hamza, GPU + training lead | training script, baseline, seeds, ablations, VLM probe, feature cache | lab RTX A2000 12 GB + Kaggle T4 |
+| [B] Data + evaluation | Phototriage splits, `pairs.csv`, `eval.py`, calibration, plots, shifted set, ~200-crop face check set | laptop CPU + Kaggle T4 |
+| [C] App + deployment | Next.js app, MediaPipe faces, burst grouping, ONNX/INT8 export, browser speed | laptop CPU + Kaggle T4 |
 
 ## Conventions
 
