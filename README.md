@@ -3,20 +3,25 @@
 Pick the best photo in a series of near-duplicates with a small, calibrated, on-device model
 that says "not sure" on the pairs people themselves disagree on.
 
-AI341 Deep Neural Networks semester project (due **18 Dec 2026**) and a paper
-(working title: *Know When It's a Toss-Up: Distilling Vision-Language Models into Calibrated,
-On-Device Series Photo Selection*), draft due **31 Jan 2027**.
+AI341 Deep Neural Networks semester project (due **18 Dec 2026**). The work is designed so a
+paper can follow (working title: *Know When It's a Toss-Up: Distilling Vision-Language Models
+into Calibrated, On-Device Series Photo Selection*), but paper drafting is deferred until after
+the course deadline.
 
-The full plan lives in [`docs/planning/`](docs/planning/):
-the Research Roadmap & Paper Plan, the Paper Summaries, and the 7-day Feasibility Checklist
-(v2 is current; v1 is kept for reference). Changes since those PDFs, including the current
-hypotheses, are in [`docs/plan_amendments.md`](docs/plan_amendments.md), which wins where they
-disagree.
+The full plan lives in [`docs/planning/`](docs/planning/), as versioned Markdown with PDF
+snapshots (see [`docs/planning/README.md`](docs/planning/README.md)):
+
+- [Research Roadmap](docs/planning/roadmap.md) (v1.1): gap, hypotheses, method, experiments, risks
+- [Paper Summaries](docs/planning/paper_summaries.md) (v1.1): 24 papers, what each gives us
+- [Feasibility Checklist v2](docs/planning/Keepr_Feasibility_Checklist_v2.pdf): the 27 Nov to 4 Dec sprint
+- [Changelog](docs/planning/CHANGELOG.md)
+
+`docs/plan_amendments.md` records the 27 Nov fixes (H1 baseline, face-head labels); they are folded into roadmap v1.1.
 
 ## Repository layout
 
 ```
-docs/planning/   planning PDFs (roadmap, paper summaries, feasibility checklists)
+docs/planning/   versioned plan: roadmap.md, paper_summaries.md, PDF snapshots, CHANGELOG
 docs/            plan amendments, file contracts, compute notes, AI341 brief
 configs/         one YAML per experiment run
 src/keepr/       Python package: data, models, training, evaluation, teacher, export
