@@ -4,7 +4,7 @@
 |---|---|---|---|
 | Research Roadmap & Paper Plan | 1.3 | [`roadmap.md`](roadmap.md) | [`Keepr_Research_Roadmap_v1.3.pdf`](Keepr_Research_Roadmap_v1.3.pdf) |
 | Paper Summaries (24 papers) | 1.3 | [`paper_summaries.md`](paper_summaries.md) | [`Keepr_Paper_Summaries_v1.3.pdf`](Keepr_Paper_Summaries_v1.3.pdf) |
-| 7-Day Feasibility Checklist | 2.3 | [`feasibility_checklist.md`](feasibility_checklist.md) | [`Keepr_Feasibility_Checklist_v2.3.pdf`](Keepr_Feasibility_Checklist_v2.3.pdf) |
+| 7-Day Feasibility Checklist | 2.4 | [`feasibility_checklist.md`](feasibility_checklist.md) | [`Keepr_Feasibility_Checklist_v2.4.pdf`](Keepr_Feasibility_Checklist_v2.4.pdf) |
 
 Each doc has exactly one latest version, and it contains everything: read only that one. Never keep changes in a separate amendments file; edit the doc and bump its version. Older versions live in [`archive/`](archive/). What changed between versions: [`CHANGELOG.md`](CHANGELOG.md).
 

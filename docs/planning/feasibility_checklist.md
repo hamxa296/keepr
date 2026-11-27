@@ -4,11 +4,12 @@
   Versioned planning doc. The Markdown file is the source of truth for diffs;
   the PDF next to it is a snapshot of the same version. See docs/planning/README.md.
 -->
-> **Version 2.3** · 28 Nov 2026 · PDF snapshot: [`Keepr_Feasibility_Checklist_v2.3.pdf`](Keepr_Feasibility_Checklist_v2.3.pdf)
+> **Version 2.4** · 28 Nov 2026 · PDF snapshot: [`Keepr_Feasibility_Checklist_v2.4.pdf`](Keepr_Feasibility_Checklist_v2.4.pdf)
 > This is the only version to read. Older versions are in [`archive/`](archive/). Changes: [CHANGELOG](CHANGELOG.md).
 
 | Version | Date | Changes |
 |---|---|---|
+| 2.4 | 28 Nov 2026 | Roles named Person A, B and C instead of by name; the team decides who takes which |
 | 2.3 | 28 Nov 2026 | Kaggle-only: no lab GPU is confirmed (the A2000 may come on Mon 30 Nov and is optional). Phototriage is already a private Kaggle dataset shared with the team. Code runs from the GitHub repo inside thin Kaggle notebooks; images pre-resized to 256 px; T4 ×2 sessions run two jobs at once; run outputs shared as Kaggle datasets instead of Drive; quota split per person |
 | 2.2 | 28 Nov 2026 | No 4090: compute is now the lab RTX A2000 (12 GB) plus Kaggle T4 (30 h/week per teammate, 90 h total). VLM teacher runs in 4-bit on the A2000 or fp16 across Kaggle T4 ×2. Phototriage shared as a private Kaggle dataset. Seeds and ablations spread across all three Kaggle quotas |
 | 2.1 | 27 Nov 2026 | CLIP ViT-B/16 feature cache and head added (the H1 baseline); face-head label sources; ~200-crop face check set for B; face-label file contracts; CLIP-ratio row in the scorecard |
@@ -22,9 +23,9 @@ Goal: prove, with real numbers, that the Phototriage version of Keepr works, or 
 
 | Who | Owns | Compute |
 |---|---|---|
-| **[A] Hamza** · GPU + training lead | Training script, baseline, seeds, backbone ablations, CLIP baseline, VLM probe, saved feature caches. Final call on the decision. | Kaggle T4 ×2 (30 h/week) |
-| **[B] Teammate** · Data + evaluation | Phototriage download and splits, `eval.py`, calibration and "not sure" analysis, all plots, the scorecard, the face check set, the shifted phone-photo set. | Laptop CPU + Kaggle T4 (30 h/week) |
-| **[C] Teammate** · App + deployment | Next.js app, MediaPipe faces in the browser, burst grouping, ONNX/INT8 export, browser speed test, app screenshots for the memo. | Laptop CPU + Kaggle T4 (30 h/week) |
+| **[A] Person A** · GPU + training lead | Training script, baseline, seeds, backbone ablations, CLIP baseline, VLM probe, saved feature caches. Final call on the decision. | Kaggle T4 ×2 (30 h/week) |
+| **[B] Person B** · Data + evaluation | Phototriage download and splits, `eval.py`, calibration and "not sure" analysis, all plots, the scorecard, the face check set, the shifted phone-photo set. | Laptop CPU + Kaggle T4 (30 h/week) |
+| **[C] Person C** · App + deployment | Next.js app, MediaPipe faces in the browser, burst grouping, ONNX/INT8 export, browser speed test, app screenshots for the memo. | Laptop CPU + Kaggle T4 (30 h/week) |
 
 ## Start today: the first six steps
 

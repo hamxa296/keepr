@@ -38,6 +38,9 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 
 ## Feasibility Checklist
 
+### 2.4 — 28 Nov 2026
+- Roles are Person A (GPU + training), Person B (data + evaluation) and Person C (app + deployment), not tied to names.
+
 ### 2.3 — 28 Nov 2026
 - **Kaggle-only:** all GPU work on Kaggle T4 ×2 (30 h/week × 3 accounts); the lab A2000 is optional.
 - Phototriage already uploaded as a private Kaggle dataset (done); new `phototriage-256` pre-resized dataset; starter notebook that clones the repo.
@@ -59,7 +62,7 @@ Versions follow `MAJOR.MINOR` (see [README](README.md)). Newest first.
 - File contracts gain `data/face_labels.csv` and `data/face_check.csv`.
 
 ### 2.0 — 27 Nov 2026
-- Course-only scope, three roles ([A] Hamza GPU lead, [B] data + eval, [C] app), GPU plan, file contracts.
+- Course-only scope, three roles ([A] GPU lead, [B] data + eval, [C] app), GPU plan, file contracts.
 
 ### 1.0 — 27 Nov 2026
 - First 7-day checklist (`archive/Keepr_Feasibility_Checklist_v1.0.pdf`).

@@ -14,7 +14,7 @@ snapshots. Each doc has one latest version that contains everything, so read onl
 
 - [Research Roadmap](docs/planning/roadmap.md) (v1.3): gap, hypotheses, method, experiments, risks
 - [Paper Summaries](docs/planning/paper_summaries.md) (v1.3): 24 papers, what each gives us
-- [Feasibility Checklist](docs/planning/feasibility_checklist.md) (v2.3): the 27 Nov to 4 Dec sprint
+- [Feasibility Checklist](docs/planning/feasibility_checklist.md) (v2.4): the 27 Nov to 4 Dec sprint
 - [Changelog](docs/planning/CHANGELOG.md)
 
 ## Repository layout
@@ -41,9 +41,9 @@ per kind of run output), using the same folder names. All GPU work runs on Kaggl
 
 | Role | Owns | Compute |
 |---|---|---|
-| [A] Hamza, GPU + training lead | training script, baseline, seeds, ablations, VLM probe, feature cache | Kaggle T4 ×2 (30 h/week) |
-| [B] Data + evaluation | Phototriage splits, `pairs.csv`, `eval.py`, calibration, plots, shifted set, ~200-crop face check set | laptop CPU + Kaggle T4 ×2 (30 h/week) |
-| [C] App + deployment | Next.js app, MediaPipe faces, burst grouping, ONNX/INT8 export, browser speed | laptop CPU + Kaggle T4 ×2 (30 h/week) |
+| [A] Person A, GPU + training lead | training script, baseline, seeds, ablations, VLM probe, feature cache | Kaggle T4 ×2 (30 h/week) |
+| [B] Person B, data + evaluation | Phototriage splits, `pairs.csv`, `eval.py`, calibration, plots, shifted set, ~200-crop face check set | laptop CPU + Kaggle T4 ×2 (30 h/week) |
+| [C] Person C, app + deployment | Next.js app, MediaPipe faces, burst grouping, ONNX/INT8 export, browser speed | laptop CPU + Kaggle T4 ×2 (30 h/week) |
 
 ## Conventions
 
