@@ -1,0 +1,26 @@
+# Face-state heads (plan amendment A2). Labels do not depend on the VLM teacher.
+face_crop:
+  detector: mediapipe
+  size: 112                     # fixed size, applied before any blur measurement
+
+heads:
+  eyes_open:
+    pretrain: cew
+    pseudo_label: ear           # eye aspect ratio from MediaPipe landmarks
+    threshold: fit_on_cew
+  smile:
+    pretrain: celeba_smiling
+  gaze:
+    pseudo_label: head_pose     # yaw / pitch from MediaPipe landmarks
+    max_abs_yaw_deg: null       # set on training data, never on the check set
+    max_abs_pitch_deg: null
+  sharp:
+    pseudo_label: laplacian_var
+    threshold: null             # set on training data after resizing crops
+  occlusion:
+    source: null                # open question, see docs/plan_amendments.md
+
+vlm_extra:
+  enabled: false                # only if the teacher passes the flip test
+
+check_set: data/face_check.csv  # ~200 hand-labelled crops, evaluation only

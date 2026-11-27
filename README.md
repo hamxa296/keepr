@@ -9,13 +9,15 @@ On-Device Series Photo Selection*), draft due **31 Jan 2027**.
 
 The full plan lives in [`docs/planning/`](docs/planning/):
 the Research Roadmap & Paper Plan, the Paper Summaries, and the 7-day Feasibility Checklist
-(v2 is current; v1 is kept for reference).
+(v2 is current; v1 is kept for reference). Changes since those PDFs, including the current
+hypotheses, are in [`docs/plan_amendments.md`](docs/plan_amendments.md), which wins where they
+disagree.
 
 ## Repository layout
 
 ```
 docs/planning/   planning PDFs (roadmap, paper summaries, feasibility checklists)
-docs/            file contracts, compute notes, AI341 brief
+docs/            plan amendments, file contracts, compute notes, AI341 brief
 configs/         one YAML per experiment run
 src/keepr/       Python package: data, models, training, evaluation, teacher, export
 scripts/         command-line entry points that call src/keepr
@@ -34,7 +36,7 @@ in the shared Drive folder using the same folder names, so paths match on every 
 | Role | Owns | Compute |
 |---|---|---|
 | [A] Hamza, GPU + training lead | training script, baseline, seeds, ablations, VLM probe, feature cache | lab RTX 4090 (access not yet confirmed) |
-| [B] Data + evaluation | Phototriage splits, `pairs.csv`, `eval.py`, calibration, plots, shifted set | laptop CPU + Kaggle |
+| [B] Data + evaluation | Phototriage splits, `pairs.csv`, `eval.py`, calibration, plots, shifted set, ~200-crop face check set | laptop CPU + Kaggle |
 | [C] App + deployment | Next.js app, MediaPipe faces, burst grouping, ONNX/INT8 export, browser speed | laptop CPU + Kaggle |
 
 ## Conventions

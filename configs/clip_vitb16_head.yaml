@@ -1,0 +1,27 @@
+# E1 large baseline, cheap version (plan amendment A1).
+# Frozen CLIP ViT-B/16 image features cached once, small pairwise head trained on top.
+run_name: YYYYMMDD_clipb16head_s0
+seed: 0
+
+data:
+  pairs_csv: data/processed/pairs.csv
+  feats: feats/clip_vitb16.npy
+  feats_index: feats/clip_vitb16_index.csv
+
+model:
+  backbone: clip_vit_b16        # image encoder only, frozen
+  pretrained: openai
+  frozen: true
+  head: mlp                     # per-photo score s = head(f); P(A>B) = sigmoid(sA - sB)
+  head_hidden: 256
+
+train:
+  epochs: 30
+  batch_size: 256
+  optimizer: adamw
+  lr: 1.0e-3
+  weight_decay: 1.0e-2
+
+eval:
+  test_agreement_threshold: 0.7
+  ece_bins: 15

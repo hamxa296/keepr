@@ -22,6 +22,41 @@ Extra columns we expect to need (add when building the file):
 `n_votes` (int, raters for this pair) and `high_agreement` (bool, `vote_frac` > 0.7 or < 0.3,
 the Chang 2016 test protocol).
 
+## `data/face_labels.csv` (made by A, used by A and B)
+
+Face crops and their labels or pseudo-labels for the face heads (plan amendment A2).
+
+| Column | Type | Meaning |
+|---|---|---|
+| `face_id` | str | unique id for the crop |
+| `img_path` | str | source image, relative to `data/raw/<dataset>/` |
+| `dataset` | str | `phototriage`, `cew` or `celeba` |
+| `bbox` | str | `x,y,w,h` in source-image pixels |
+| `eyes_open` | float | label (CEW) or pseudo-label (EAR rule); empty if unknown |
+| `ear` | float | raw eye aspect ratio |
+| `smile` | float | CelebA `Smiling`; empty for other datasets |
+| `yaw`, `pitch` | float | head pose in degrees from MediaPipe |
+| `gaze_camera` | float | pseudo-label from yaw/pitch thresholds |
+| `blur_var` | float | Laplacian variance on the 112×112 resized crop |
+| `sharp` | float | pseudo-label from `blur_var` |
+| `eyeglasses` | int | 1 if glasses detected or labelled, else 0 (EAR is less reliable with glasses) |
+
+## `data/face_check.csv` (made by B by hand, used by A and B)
+
+About 200 Phototriage face crops, labelled by hand. Evaluation only: never used to train or to
+set a threshold.
+
+| Column | Type | Meaning |
+|---|---|---|
+| `face_id` | str | joins to `face_labels.csv` |
+| `series_category` | str | `portrait`, `group`, `selfie` or `other` |
+| `eyes_open` | int | 1/0 |
+| `smile` | int | 1/0 |
+| `gaze_camera` | int | 1/0 |
+| `sharp` | int | 1/0 |
+| `occluded` | int | 1/0 |
+| `labeller` | str | initials |
+
 ## `preds/<run>.csv` (made by A, used by B)
 
 | Column | Type | Meaning |
@@ -34,6 +69,7 @@ the Chang 2016 test protocol).
 ## `feats/<backbone>.npy` (made by A, used by A, B, C)
 
 One feature vector per image from a frozen pretrained backbone, shape `(n_images, dim)`.
+The CLIP baseline uses `feats/clip_vitb16.npy` (image encoder, 512-d projected embedding).
 Saved with a companion `feats/<backbone>_index.csv` holding `row, img_path` so rows can be
 matched to images.
 
