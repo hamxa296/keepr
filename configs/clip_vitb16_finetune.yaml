@@ -1,4 +1,4 @@
-# E1 large baseline, full fine-tune (plan amendment A1). Only if there is spare 4090 time.
+# E1 large baseline, full fine-tune (roadmap v1.1, E1). Only if there is spare 4090 time.
 run_name: YYYYMMDD_clipb16ft_s0
 seed: 0
 

@@ -16,13 +16,11 @@ snapshots (see [`docs/planning/README.md`](docs/planning/README.md)):
 - [Feasibility Checklist v2](docs/planning/Keepr_Feasibility_Checklist_v2.pdf): the 27 Nov to 4 Dec sprint
 - [Changelog](docs/planning/CHANGELOG.md)
 
-`docs/plan_amendments.md` records the 27 Nov fixes (H1 baseline, face-head labels); they are folded into roadmap v1.1.
-
 ## Repository layout
 
 ```
 docs/planning/   versioned plan: roadmap.md, paper_summaries.md, PDF snapshots, CHANGELOG
-docs/            plan amendments, file contracts, compute notes, AI341 brief
+docs/            file contracts, compute notes, AI341 brief
 configs/         one YAML per experiment run
 src/keepr/       Python package: data, models, training, evaluation, teacher, export
 scripts/         command-line entry points that call src/keepr

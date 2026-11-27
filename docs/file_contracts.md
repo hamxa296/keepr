@@ -24,7 +24,7 @@ the Chang 2016 test protocol).
 
 ## `data/face_labels.csv` (made by A, used by A and B)
 
-Face crops and their labels or pseudo-labels for the face heads (plan amendment A2).
+Face crops and their labels or pseudo-labels for the face heads (roadmap v1.1, Method: face-head labels).
 
 | Column | Type | Meaning |
 |---|---|---|

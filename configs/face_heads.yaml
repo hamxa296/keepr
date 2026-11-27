@@ -1,4 +1,4 @@
-# Face-state heads (plan amendment A2). Labels do not depend on the VLM teacher.
+# Face-state heads (roadmap v1.1, Method: face-head labels). Labels do not depend on the VLM teacher.
 face_crop:
   detector: mediapipe
   size: 112                     # fixed size, applied before any blur measurement
@@ -18,7 +18,7 @@ heads:
     pseudo_label: laplacian_var
     threshold: null             # set on training data after resizing crops
   occlusion:
-    source: null                # open question, see docs/plan_amendments.md
+    pretrain: celeba_eyeglasses # proxy for occlusion, per roadmap v1.1
 
 vlm_extra:
   enabled: false                # only if the teacher passes the flip test
